@@ -1,3 +1,4 @@
+
 public class Main {
     public static void main(String[] args) {
         Queue<Integer> q = new Queue<>();
@@ -11,48 +12,56 @@ public class Main {
         System.out.println("Initial queue:");
         printQueue(q);
 
+        // Clone
         Queue<Integer> clone = Clone(q);
         System.out.println("Clone of the queue:");
         printQueue(clone);
 
+        // Size
         int size = Size(q);
         System.out.println("Queue size: " + size);
 
+        // Sum
         int sum = Sum(q);
         System.out.println("Sum of all elements: " + sum);
 
-
+        // Exists
         System.out.println("Does 30 exist? " + Exists(q, 30));
         System.out.println("Does 99 exist? " + Exists(q, 99));
 
+        // IsSorted
         System.out.println("Is the queue sorted? " + IsSorted(q));
 
+        // InsertToBottom
         InsertToBottom(q, 60);
         System.out.println("After InsertToBottom(60):");
         printQueue(q);
 
+        // MoveTopToBottom
         MoveTopToBottom(q);
         System.out.println("After MoveTopToBottom:");
         printQueue(q);
 
+        // RemoveBottom
         Integer removedBottom = RemoveBottom(q);
         System.out.println("Removed from bottom: " + removedBottom);
         printQueue(q);
 
+        // MoveBottomToTop
         MoveBottomToTop(q);
         System.out.println("After MoveBottomToTop:");
         printQueue(q);
 
-
+        // MaxValue
         int max = MaxValue(q);
         System.out.println("Max value in the queue: " + max);
 
-
+        // RemoveMax
         int removedMax = RemoveMax(q);
         System.out.println("Removed max value: " + removedMax);
         printQueue(q);
 
-
+        // SpillOn
         Queue<Integer> newQueue = new Queue<>();
         SpillOn(q, newQueue);
         System.out.println("After SpillOn(q -> newQueue):");
@@ -60,6 +69,22 @@ public class Main {
         printQueue(q);
         System.out.print("newQueue: ");
         printQueue(newQueue);
+
+
+        Queue<Integer> q2 = new Queue<>();
+        q2.insert(50);
+        q2.insert(10);
+        q2.insert(40);
+        q2.insert(30);
+        q2.insert(20);
+
+        System.out.println("\nQueue before sorting:");
+        printQueue(q2);
+
+        Queue<Integer> sortedQueue = sortNewQueue(q2);
+        System.out.println("Sorted queue:");
+        printQueue(sortedQueue);
+
     }
 
 
@@ -246,5 +271,124 @@ public class Main {
         }
 
         return max;
+    }
+    public static void InsertAtPosition(Queue<Integer> q, int position, int x)
+    {
+        Queue<Integer> temp = new Queue<>();
+
+        for (int i = 0; i < position && !q.isEmpty(); i++) {
+            temp.insert(q.remove());
+        }
+
+        temp.insert(x);
+
+        while (!q.isEmpty()) {
+            temp.insert(q.remove());
+        }
+
+        while (!temp.isEmpty()) {
+            q.insert(temp.remove());
+        }
+    }
+    public static void RemoveAtPosition(Queue<Integer> q, int position)
+    {
+        Queue<Integer> temp = new Queue<>();
+
+        for (int i = 0; i < position && !q.isEmpty(); i++) {
+            temp.insert(q.remove());
+        }
+
+        if (!q.isEmpty()) {
+            q.remove();
+        }
+
+        while (!q.isEmpty()) {
+            temp.insert(q.remove());
+        }
+
+        while (!temp.isEmpty()) {
+            q.insert(temp.remove());
+        }
+    }
+    public static Queue<Integer> Reverse1(Queue<Integer> q)
+    {
+        Queue<Integer> temp = Clone(q);
+        Queue<Integer> reversed = new Queue<>();
+
+        while (!temp.isEmpty()) {
+            Integer last = RemoveBottom(temp);
+            reversed.insert(last);
+        }
+
+        return reversed;
+    }
+    public static Queue<Integer> sortNewQueue(Queue<Integer> q)
+    {
+        Queue<Integer> temp = new Queue<>();
+        Queue<Integer> sorted = new Queue<>();
+
+        while (!q.isEmpty())
+            temp.insert(q.remove());
+
+        while (!temp.isEmpty())
+        {
+            Queue<Integer> temp2 = new Queue<>();
+            int min = temp.head();
+
+            while (!temp.isEmpty())
+            {
+                int current = temp.remove();
+                if (current < min)
+                    min = current;
+                temp2.insert(current);
+            }
+
+            boolean removed = false;
+            while (!temp2.isEmpty())
+            {
+                int current = temp2.remove();
+                if (!removed && current == min)
+                {
+                    removed = true;
+                }
+                else
+                {
+                    temp.insert(current);
+                }
+            }
+
+            sorted.insert(min);
+        }
+        return sorted;
+    }
+    public static Queue<Integer> sortQueue(Queue<Integer> q)
+    {
+        Queue<Integer> sorted = new Queue<>();
+        Queue<Integer> temp2 = new Queue<>();
+
+        while (!q.isEmpty())
+        {
+            if (sorted.isEmpty())
+                sorted.insert(q.remove());
+            else if (q.head() >= sorted.head())
+            {
+                temp2.insert(q.remove());
+                SpillOn(sorted, temp2);
+                SpillOn(temp2, sorted);
+            }
+            else
+            {
+                while (!sorted.isEmpty() && !q.isEmpty())
+                {
+                    if (sorted.head() > q.head())
+                        temp2.insert(sorted.remove());
+                    else
+                        temp2.insert(q.remove());
+                }
+                SpillOn(temp2, sorted);
+            }
+        }
+
+        return sorted;
     }
 }
