@@ -1,3 +1,4 @@
+
 public class Main {
     // ex1
     public static void printPostOrder(BinNode<Integer> t){
@@ -7,6 +8,7 @@ public class Main {
         printPostOrder(t.getRight());
         System.out.println(t.getValue());
     }
+
     // ex2
     public static void printInOrder(BinNode<Integer> t){
         if (t == null)
@@ -15,14 +17,19 @@ public class Main {
         System.out.println(t.getValue());
         printInOrder(t.getRight());
     }
+
     // ex3
     public static void printPreOrder(BinNode<Integer> t){
         if (t == null)
             return;
-        System.out.println(t.getValue());
+
+        if (t.hasRight())
+            System.out.println(t.getRight().getValue());
+
         printPreOrder(t.getLeft());
         printPreOrder(t.getRight());
     }
+
     // ex4
     public static void printChildrenSmallerThanParent(BinNode<Integer> t){
         if (t == null)
@@ -37,6 +44,7 @@ public class Main {
         if (t.getRight() != null && t.getRight().getValue() < t.getValue())
             System.out.println(t.getRight().getValue());
     }
+
     // ex5
     public static void printNodeGreaterThanChild(BinNode<Integer> t){
         if (t == null)
@@ -50,6 +58,7 @@ public class Main {
         printNodeGreaterThanChild(t.getLeft());
         printNodeGreaterThanChild(t.getRight());
     }
+
     // ex6
     public static int sumNodes(BinNode<Integer> t){
         if (t == null)
@@ -57,6 +66,7 @@ public class Main {
 
         return t.getValue() + sumNodes(t.getLeft()) + sumNodes(t.getRight());
     }
+
     // ex7
     public static int countLeaves(BinNode<Integer> t){
         if (t == null)
@@ -67,6 +77,7 @@ public class Main {
 
         return countLeaves(t.getLeft()) + countLeaves(t.getRight());
     }
+
     // ex8
     public static int sumRightChildren(BinNode<Integer> t){
         if (t == null)
@@ -79,6 +90,7 @@ public class Main {
 
         return sum + sumRightChildren(t.getRight()) + sumRightChildren(t.getLeft());
     }
+
     // ex9
     public static int countSingleChildNodes(BinNode<Integer> t){
         if (t == null)
@@ -92,6 +104,7 @@ public class Main {
 
         return countSingleChildNodes(t.getLeft()) + countSingleChildNodes(t.getRight());
     }
+
     // ex10
     public static int countEvenNodes(BinNode<Integer> t){
         if (t == null)
@@ -102,6 +115,7 @@ public class Main {
 
         return countEvenNodes(t.getLeft()) + countEvenNodes(t.getRight());
     }
+
     // ex11
     public static int countOccurrences(BinNode<Integer> t, int x){
         if (t == null)
@@ -112,6 +126,7 @@ public class Main {
 
         return countOccurrences(t.getRight(), x) + countOccurrences(t.getLeft(), x);
     }
+
     // ex12
     public static int countGrandparentNodes(BinNode<Integer> t){
         if (t == null)
@@ -128,6 +143,7 @@ public class Main {
 
         return count + countGrandparentNodes(t.getLeft()) + countGrandparentNodes(t.getRight());
     }
+
     // ex13
     public static int countSingleOddChildNodes(BinNode<Integer> t){
         if (t == null)
@@ -141,6 +157,7 @@ public class Main {
 
         return countSingleOddChildNodes(t.getRight()) + countSingleOddChildNodes(t.getLeft());
     }
+
     // ex14
     public static int countNodesWithEqualChildren(BinNode<Integer> t){
         if (t == null)
@@ -155,6 +172,7 @@ public class Main {
 
         return count + countNodesWithEqualChildren(t.getLeft()) + countNodesWithEqualChildren(t.getRight());
     }
+
     // ex15
     public static int countNodesSmallerThanChild(BinNode<Integer> t) {
         if (t == null)
@@ -171,6 +189,7 @@ public class Main {
                 + countNodesSmallerThanChild(t.getLeft())
                 + countNodesSmallerThanChild(t.getRight());
     }
+
     // ex16
     public static int countChildrenGreaterThanParent(BinNode<Integer> t) {
         if (t == null)
@@ -189,6 +208,7 @@ public class Main {
 
         return count;
     }
+
     //ex 23
     public static boolean isAllValuesAreOdd(BinNode<Integer>t){
         if (t == null)
@@ -197,6 +217,7 @@ public class Main {
             return false;
         return isAllValuesAreOdd(t.getLeft()) && isAllValuesAreOdd(t.getRight());
     }
+
     //ex 24
     public static boolean isAllBrothersHaveEqualValues(BinNode<Integer> t){
         if (t == null)
@@ -209,6 +230,7 @@ public class Main {
         }
         return isAllBrothersHaveEqualValues(t.getLeft()) && isAllBrothersHaveEqualValues(t.getRight());
     }
+
     //ex 25
     public static boolean isAllBrothersEqualToParent(BinNode<Integer> t) {
         if (t == null)
@@ -219,6 +241,7 @@ public class Main {
             return false;
         return isAllBrothersEqualToParent(t.getLeft()) &&  isAllBrothersEqualToParent(t.getRight());
     }
+
     //ex 26
     public static boolean isHas8(BinNode<Integer>t){
         if (t == null)
@@ -227,6 +250,7 @@ public class Main {
             return false;
         return isHas8(t.getLeft()) && isHas8(t.getRight());
     }
+
     //ex 27
     public static boolean hasNodeWithDifferentChildren(BinNode<Integer>t){
         if (t == null)
@@ -236,6 +260,7 @@ public class Main {
             return true;
         return hasNodeWithDifferentChildren(t.getLeft()) || hasNodeWithDifferentChildren(t.getRight());
     }
+
     //ex 28
     public static boolean isLeftGreaterRightSmaller(BinNode<Integer> t){
         if (t == null)
@@ -247,5 +272,133 @@ public class Main {
             return false;
         }
         return isLeftGreaterRightSmaller(t.getRight()) && isLeftGreaterRightSmaller(t.getLeft());
+    }
+
+    //ex 31
+    public static boolean  isAriel(BinNode<Integer>t){
+        if (t==null)
+            return true;
+        if ((t.hasRight() && t.hasLeft())||(!t.hasLeft() && !t.hasRight()))
+            return isAriel(t.getLeft()) && isAriel(t.getRight());
+        return false;
+    }
+    // ex 32
+    public static boolean isPini(BinNode<Integer> t){
+        if (t == null)
+            return true;
+
+        if (t.hasLeft() && t.getLeft().getValue() > t.getValue())
+            if ((t.hasLeft() && isPini(t.getLeft())) || (t.hasRight() && isPini(t.getRight())))
+                return true;
+
+        if (t.hasRight() && t.getRight().getValue() > t.getValue())
+            if ((t.hasLeft() && isPini(t.getLeft())) || (t.hasRight() && isPini(t.getRight())))
+                return true;
+
+        return false;
+    }
+    //ex 33
+    public static boolean isYehiel(BinNode<Integer>t){
+        if (t==null)
+            return true;
+        if (t.hasLeft()&&t.hasRight() && t.getValue()==t.getRight().getValue()+t.getLeft().getValue())
+            return isYehiel(t.getLeft()) && isYehiel(t.getRight());
+        if (!t.hasRight() && !t.hasLeft())
+            return true;
+        return false;
+    }
+    //ex 34
+    public static boolean isTzachi(BinNode<Integer> t){
+        if (t == null)
+            return true;
+        if (t.hasLeft() && t.getValue() == t.getLeft().getValue()){
+            if (isTzachi(t.getLeft()))
+                return true;
+        }
+        if (t.hasRight() && t.getValue() == t.getRight().getValue()){
+            if (isTzachi(t.getRight()))
+                return true;
+        }
+        return false;
+    }
+    //ex 35
+    public static boolean isAmit(BinNode<Integer>t){
+        if (t == null)
+            return true;
+        if (t.hasLeft() && !t.hasRight()){
+            if (t.getValue()%2==0)
+                return isAmit(t.getLeft());
+            return false;
+        }
+        if (!t.hasLeft() && t.hasRight()){
+            if (t.getValue()%2==0)
+                return isAmit(t.getRight());
+            return false;
+        }
+        return isAmit(t.getLeft()) && isAmit(t.getRight());
+    }
+    //ex 36
+    public static boolean isMaayan(BinNode<Integer> t){
+        if (t == null)
+            return true;
+
+        if (hasGrandchildWithSingleParent(t))
+            return false;
+
+        return isMaayan(t.getLeft()) && isMaayan(t.getRight());
+    }
+    public static boolean hasGrandchildWithSingleParent(BinNode<Integer> t){
+
+        if (t.hasLeft()){
+            BinNode<Integer> left = t.getLeft();
+
+            if (left.hasLeft() && !left.hasRight())
+                return true;
+
+            if (!left.hasLeft() && left.hasRight())
+                return true;
+        }
+        if (t.hasRight()){
+            BinNode<Integer> right = t.getRight();
+
+            if (right.hasLeft() && !right.hasRight())
+                return true;
+
+            if (!right.hasLeft() && right.hasRight())
+                return true;
+        }
+        return false;
+    }
+    //ex 37
+    public static boolean isArzi(BinNode<Integer> t){
+        if (t == null)
+            return true;
+
+        if (isBadLeaf(t))
+            return false;
+
+        return isArzi(t.getLeft()) && isArzi(t.getRight());
+    }
+
+    public static boolean isBadLeaf(BinNode<Integer> t){
+
+        if (t.hasLeft() && !t.hasRight()){
+            if (isLeaf(t.getLeft()))
+                return false;
+        }
+
+        if (!t.hasLeft() && t.hasRight()){
+            if (isLeaf(t.getRight()))
+                return false;
+        }
+
+        if (!t.hasLeft() && !t.hasRight())
+            return true;
+
+        return false;
+    }
+
+    public static boolean isLeaf(BinNode<Integer> t){
+        return !t.hasLeft() && !t.hasRight();
     }
 }
